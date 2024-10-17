@@ -17,18 +17,37 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+
+        try {
+            scene = new Scene(loadFXML(), 640, 480);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Error error) {
+            System.out.println(error.getMessage());
+            System.out.println(error.getLocalizedMessage());
+            System.out.println(error.getCause());
+
+        }
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
+    private Parent loadFXML() throws IOException {
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/JanelaPrincipal.fxml"));
+
         return fxmlLoader.load();
+    }
+
+    @Override
+    public void init() throws Exception {
+        // TODO Auto-generated method stub
+        super.init();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        // TODO Auto-generated method stub
+        super.stop();
     }
 
     public static void main(String[] args) {
