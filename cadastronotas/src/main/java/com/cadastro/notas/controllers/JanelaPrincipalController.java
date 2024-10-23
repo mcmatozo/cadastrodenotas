@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.FileHandler;
 
 import com.cadastro.notas.models.Aluno;
 import com.cadastro.notas.models.Notas;
@@ -95,21 +94,34 @@ public class JanelaPrincipalController implements Initializable {
         mediaNotas.setCellValueFactory(new PropertyValueFactory<Aluno, Double>("mediaNotas"));
         tabela.setItems(alunos);
 
-        // inicializarAlunos();
+        inicializarAlunos();
 
     }
 
     private void inicializarAlunos() {
-        String caminho = getClass().getResource("../alunos.txt").toString();
-        FileReader fileReader = new FileReader(caminho);
-        BufferedReader reader = new BufferedReader(fileReader);
+        try {
+            String caminho = "C:\\Users\\T-GAMER\\mcoo\\cadastrodenotas\\cadastrodenotas\\cadastronotas\\src\\main\\java\\com\\cadastro\\n"
+                    + //
+                    "otas\\alunos.txt";
+            FileReader fileReader = new FileReader(caminho);
+            BufferedReader reader = new BufferedReader(fileReader);
 
-        while (reader.ready()) {
-            String[] alunotexto = reader.readLine().split(",");
-            System.out.println(alunotexto);
+            while (reader.ready()) {
+                String[] alunotexto = reader.readLine().split(",");
+                System.out.println(alunotexto);
 
-            Aluno aluno = new Aluno(alunotexto[0], alunotexto[1], alunotexto[2], alunotexto[3], new Notas(0, 0, 0, 0));
+                Aluno aluno = new Aluno(alunotexto[0], alunotexto[1], alunotexto[2], alunotexto[3],
+                        new Notas(
+                                Double.parseDouble(alunotexto[4]),
+                                Double.parseDouble(alunotexto[5]),
+                                Double.parseDouble(alunotexto[6]),
+                                Double.parseDouble(alunotexto[7])));
 
+                alunos.add(aluno);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
