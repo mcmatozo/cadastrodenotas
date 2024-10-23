@@ -56,10 +56,12 @@ public class NovoAlunoController implements Initializable {
 
         Stage stage = (Stage) nomeField.getScene().getWindow();
         stage.close();
+
+        
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
+        
     }
 }

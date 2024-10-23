@@ -106,6 +106,7 @@ public class JanelaPrincipalController implements Initializable {
             FileReader fileReader = new FileReader(caminho);
             BufferedReader reader = new BufferedReader(fileReader);
 
+
             while (reader.ready()) {
                 String[] alunotexto = reader.readLine().split(",");
                 System.out.println(alunotexto);
@@ -119,7 +120,7 @@ public class JanelaPrincipalController implements Initializable {
 
                 alunos.add(aluno);
 
-            }
+            } reader.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

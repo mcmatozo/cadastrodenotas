@@ -14,6 +14,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -40,13 +41,11 @@ public class App extends Application {
 
     @Override
     public void init() throws Exception {
-        // TODO Auto-generated method stub
         super.init();
     }
 
     @Override
     public void stop() throws Exception {
-        // TODO Auto-generated method stub
         super.stop();
     }
 
