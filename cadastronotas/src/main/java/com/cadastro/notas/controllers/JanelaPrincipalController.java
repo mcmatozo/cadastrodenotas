@@ -28,57 +28,49 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class JanelaPrincipalController implements Initializable {
-
+    // FXMLpra conectar os componentes da interface
     @FXML
     private Button buttonNovoAluno;
-
     @FXML
     private TableColumn<Aluno, String> cpf;
-
     @FXML
     private TableColumn<Aluno, String> dataNascimento;
-
     @FXML
     private TableColumn<Aluno, String> email;
-
     @FXML
     private TableColumn<Aluno, Double> mediaNotas;
-
     @FXML
     private TableColumn<Aluno, String> nome;
-
     @FXML
     private TableColumn<Aluno, Double> nota1;
-
     @FXML
     private TableColumn<Aluno, Double> nota2;
-
     @FXML
     private TableColumn<Aluno, Double> nota3;
-
     @FXML
     private TableColumn<Aluno, Double> nota4;
-
     @FXML
     private TableView<Aluno> tabela;
-
     @FXML
     private TableColumn<Aluno, Void> editColumn;
-
     @FXML
     private TableColumn<Aluno, Void> removeColumn;
 
+    // lista observável de alunos
     ObservableList<Aluno> alunos = FXCollections.observableArrayList();
 
     @FXML
     public void handleCreateNewAluno(ActionEvent event) {
         try {
+            // carrega a tela para cadastrar um novo aluno
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cadastro/notas/views/NovoAluno.fxml"));
             Parent root = fxmlLoader.load();
 
+            // passa a lista de alunos para o controlador da nova tela
             NovoAlunoController novoAlunoController = fxmlLoader.getController();
             novoAlunoController.setAlunos(alunos);
 
+            // cria e exibe a nova janela
             Stage stage = new Stage();
             stage.setTitle("Cadastrar Novo Aluno");
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -86,15 +78,16 @@ public class JanelaPrincipalController implements Initializable {
             stage.show();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // imprime a stack trace em caso de erro
         }
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
+        // inicializa a tabela e seus botões de ação
         adicionarBotoesDeAcao();
 
+        // configura as colunas da tabela para exibir as propriedades dos alunos
         nome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
         dataNascimento.setCellValueFactory(cellData -> cellData.getValue().dataNascimentoProperty());
         cpf.setCellValueFactory(cellData -> cellData.getValue().cpfProperty());
@@ -105,22 +98,24 @@ public class JanelaPrincipalController implements Initializable {
         nota4.setCellValueFactory(new PropertyValueFactory<Aluno, Double>("nota4"));
         mediaNotas.setCellValueFactory(new PropertyValueFactory<Aluno, Double>("mediaNotas"));
 
+        // define a lista de alunos na tabela
         tabela.setItems(alunos);
 
+        // carrega os alunos do arquivo ao iniciar
         inicializarAlunos();
     }
 
     private void inicializarAlunos() {
         try {
+            // lê os dados dos alunos de um arquivo
             String path = System.getProperty("user.dir")
                     + "\\cadastronotas\\src\\main\\java\\com\\cadastro\\notas\\alunos.txt";
             FileReader fileReader = new FileReader(path);
             BufferedReader reader = new BufferedReader(fileReader);
 
+            // para cada linha, cria um objeto Aluno e adiciona à lista
             while (reader.ready()) {
                 String[] alunotexto = reader.readLine().split(",");
-                System.out.println(alunotexto);
-
                 Aluno aluno = new Aluno(alunotexto[0], alunotexto[1], alunotexto[2], alunotexto[3],
                         new Notas(
                                 Double.parseDouble(alunotexto[4]),
@@ -129,16 +124,18 @@ public class JanelaPrincipalController implements Initializable {
                                 Double.parseDouble(alunotexto[7])));
 
                 alunos.add(aluno);
-
             }
-            reader.close();
+            reader.close(); // fecha o leitor após a leitura
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); // imprime o erro, se houver
         }
     }
 
     private void adicionarBotoesDeAcao() {
-
+        // adiciona a funcionalidade de edição na tabela
+        // lambda é algo que ajuda a implementar interfaces, algo que diz "faz isso"
+        // <> cria nova celula na tabela, para cada célula na coluna, crie uma nova
+        // célula
         editColumn.setCellFactory(param -> new TableCell<>() {
             private final Button editButton = new Button("Editar");
 
@@ -160,10 +157,14 @@ public class JanelaPrincipalController implements Initializable {
             }
         });
 
+        // adiciona a funcionalidade de remoção na tabela
         removeColumn.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Excluir");
 
             {
+                // define uma ação
+                // encontra aluno específico
+                // exclui o aluno
                 deleteButton.setOnAction(event -> {
                     Aluno aluno = getTableView().getItems().get(getIndex());
                     excluirAluno(aluno, getIndex());
@@ -179,12 +180,12 @@ public class JanelaPrincipalController implements Initializable {
                     setGraphic(deleteButton);
                 }
             }
-
         });
     }
 
     private void editarAluno(Aluno aluno) {
         try {
+            // carrega a tela para editar um aluno existente
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cadastro/notas/views/NovoAluno.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -192,8 +193,8 @@ public class JanelaPrincipalController implements Initializable {
             novoAlunoController.setAlunos(alunos);
 
             if (aluno != null) {
-                novoAlunoController.setAluno(aluno);
-                novoAlunoController.habilitarEdicao();
+                novoAlunoController.setAluno(aluno); // passa o aluno a ser editado
+                novoAlunoController.habilitarEdicao(); // habilita a edição no controlador
             }
 
             Stage stage = new Stage();
@@ -203,15 +204,13 @@ public class JanelaPrincipalController implements Initializable {
             stage.show();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // imprime a stack trace em caso de erro
         }
     }
 
     private void excluirAluno(Aluno aluno, int index) {
-        System.out.println(index);
-        alunos.remove(aluno);
-        atualizarArquivoAlunos();
-
+        alunos.remove(aluno); // remove o aluno da lista
+        atualizarArquivoAlunos(); // atualiza o arquivo com os dados atuais
     }
 
     private void atualizarArquivoAlunos() {
@@ -220,6 +219,8 @@ public class JanelaPrincipalController implements Initializable {
                     + "\\cadastronotas\\src\\main\\java\\com\\cadastro\\notas\\alunos.txt";
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path));
 
+            // escreve os dados atuais dos alunos de volta no arquivo
+            // concatena os novos dados
             for (Aluno aluno : alunos) {
                 String alunoData = aluno.getNome()
                         + "," + aluno.getDataNascimento()
@@ -234,8 +235,7 @@ public class JanelaPrincipalController implements Initializable {
                 bufferedWriter.newLine();
             }
 
-            bufferedWriter.close();
-
+            bufferedWriter.close(); // fecha o escritor após a escrita
         } catch (Exception e) {
             // TODO: handle exception
         }
