@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="399.0" prefWidth="735.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cadastro.notas.controllers.JanelaPrincipalController">
+<VBox alignment="CENTER" prefHeight="399.0" prefWidth="835.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cadastro.notas.controllers.JanelaPrincipalController">
    <children>
-      <AnchorPane prefHeight="399.0" prefWidth="725.0">
+      <AnchorPane prefHeight="399.0" prefWidth="825.0">
          <children>
             <TableView fx:id="tabela" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
               <columns>
@@ -21,6 +21,9 @@
                   <TableColumn fx:id="nota3" prefWidth="75.0" text="Nota 3" />
                   <TableColumn fx:id="nota4" prefWidth="75.0" text="Nota 4" />
                   <TableColumn fx:id="mediaNotas" prefWidth="75.0" text="Média" />
+                  <TableColumn fx:id="editColumn" prefWidth="75.0" text="Editar" />
+                  <TableColumn fx:id="removeColumn" prefWidth="75.0" text="Excluir" />
+                  
               </columns>
             </TableView>
             <Button fx:id="buttonNovoAluno" layoutX="17.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleCreateNewAluno" prefHeight="35.0" prefWidth="127.0" text="+ Cadastrar Aluno" AnchorPane.bottomAnchor="324.6666666666667" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="591.6666666666667" AnchorPane.topAnchor="40.0" />

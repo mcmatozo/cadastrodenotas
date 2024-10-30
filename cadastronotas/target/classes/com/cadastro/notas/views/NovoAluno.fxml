@@ -115,7 +115,12 @@
             </TextField>
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" onAction="#handleSalvar" prefHeight="35.0" prefWidth="76.0" text="Criar">
+      <Button fx:id="criarAlunoButton" mnemonicParsing="false" onAction="#handleSalvar" prefHeight="35.0" prefWidth="76.0" text="Criar">
+         <VBox.margin>
+            <Insets top="40.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="editarAlunoButton" mnemonicParsing="false" onAction="#handleEditar" prefHeight="35.0" prefWidth="76.0" text="Editar" visible="false">
          <VBox.margin>
             <Insets top="40.0" />
          </VBox.margin>

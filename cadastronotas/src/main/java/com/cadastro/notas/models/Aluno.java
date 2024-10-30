@@ -1,52 +1,70 @@
 package com.cadastro.notas.models;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Aluno {
 
-    private String nome;
-    private String dataNascimento;
-    private String cpf;
-    private String email;
+    private final StringProperty nome;
+    private final StringProperty dataNascimento;
+    private final StringProperty cpf;
+    private final StringProperty email;
     private Notas notas;
 
     public Aluno(String nome, String dataNascimento, String cpf, String email, Notas notas) {
-
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
-        this.email = email;
+        this.nome = new SimpleStringProperty(nome);
+        this.dataNascimento = new SimpleStringProperty(dataNascimento);
+        this.cpf = new SimpleStringProperty(cpf);
+        this.email = new SimpleStringProperty(email);
         this.notas = notas;
     }
 
     public String getNome() {
-        return nome;
+        return nome.get();
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome.set(nome);
+    }
+
+    public StringProperty nomeProperty() {
+        return nome;
     }
 
     public String getDataNascimento() {
-        return dataNascimento;
+        return dataNascimento.get();
     }
 
     public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+        this.dataNascimento.set(dataNascimento);
+    }
+
+    public StringProperty dataNascimentoProperty() {
+        return dataNascimento;
     }
 
     public String getCpf() {
-        return cpf;
+        return cpf.get();
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf.set(cpf);
+    }
+
+    public StringProperty cpfProperty() {
+        return cpf;
     }
 
     public String getEmail() {
-        return email;
+        return email.get();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email.set(email);
+    }
+
+    public StringProperty emailProperty() {
+        return email;
     }
 
     public Notas getNotas() {
